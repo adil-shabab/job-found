@@ -1,0 +1,50 @@
+
+<head>
+    <style>
+        #cs {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+            #cs td, #cs th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            #cs tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            #cs tr:hover {
+                background-color: #ddd;
+            }
+
+            #cs th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+            }
+    </style>
+</head>
+<h2>View  Category</h2>
+<table id="cs">
+    <tr>
+
+        <th>Sl.no</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Description</th>
+
+
+    </tr>
+    {% for cat in cat %}
+
+<tr>
+  <td height="87"><div align="center">{{ cat.id }}</div></td>
+  <td><div align="center">{{ cat.name }}</div></td>
+  <td><div align="center">{{ cat.category.name }}</div></td>
+  <td><div align="center">{{ cat.description }}</div></td>
+  <td width="80"><a href="/Sendbookingrequest/{{ cat.id }}">BOOK</a> Available</td>
+    {% endfor %}
+</table></html>

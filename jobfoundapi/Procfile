@@ -1,0 +1,1 @@
+web: gunicorn jobfoundapi.wsgi --log-file -

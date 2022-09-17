@@ -1,0 +1,95 @@
+{% extends 'employee/PageHeader.html' %}
+{% block content %}
+<head>
+    <style>
+        #cs {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+            #cs td, #cs th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            #cs tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            #cs tr:hover {
+                background-color: #ddd;
+            }
+
+            #cs th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+            }
+    </style>
+    <style> 
+
+        .gfg { 
+    
+        background-color: white; 
+    
+        border: 2px solid black; 
+    
+        color: green; 
+    
+        padding: 5px 10px; 
+    
+        text-align: center; 
+    
+        display: inline-block; 
+    
+        font-size: 20px; 
+    
+        margin: 10px 30px; 
+    
+        cursor: pointer; 
+    
+        } 
+    
+    </style> 
+    
+
+    
+</head>
+<table id="cs">
+    <tr>
+
+        <th>Sl.no</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Date</th>
+        <th>Status</th>
+    </tr>
+    {% for cat in cat %}
+<tr>
+  <td height="87"><div align="center">{{ cat.id }}</div></td>
+  <td><div align="center">{{ cat.userregister.name }}</div></td>
+  <td><div align="center">{{ cat.description }}</div></td>
+  <td><div align="center">{{ cat.date }}</div></td>
+  <td><div align="center">{{ cat.status }}</div></td>
+  <td><form action="/update_workstatusemp/{{ cat.id }}/{{ cat.userregister.id }}">
+    
+    <button class = "gfg" type="submit"> 
+
+        Update work status      
+
+    </button> </form></td>
+    <td><form action="/View_employee_completed_work/{{ cat.id }}">
+        <button class = "gfg" type="submit"> 
+
+            Status of work 
+    
+        </button> 
+    
+    </form></td>
+
+    {% endfor %}
+</table>
+
+</html>
+{% endblock %}

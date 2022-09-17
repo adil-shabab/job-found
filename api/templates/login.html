@@ -1,0 +1,41 @@
+{% extends 'LoginHeader.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+</head>
+<body>
+<form method="POST" class="post-form">
+        {% csrf_token %}
+
+  <table align="center" width="200" border="0">
+    <tr>
+      <td colspan="2"><div align="center">
+      </div></td>
+    </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td><h3>USERNAME</h3></td>
+      <td><label for="user_id"></label>
+      <input type="text" name="user_id" id="user_id"  required/></td>
+    </tr>
+    <tr>
+      <td><h3>PASSWORD</h3></td>
+      <td><label for="password"></label>
+      <input type="password" name="password" id="password" required /></td>
+    </tr>
+    <tr>
+      <td colspan="2"><div align="center"> <input name="login" type="submit" id="login" value="Login" />
+      </div></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>
+{% endblock %}
+
+
