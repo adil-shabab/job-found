@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 
-from.models import Bookingreq, Category, Employee,File
+from.models import Bookingreq, Category, Employee,File,Userregister
 
 
 
@@ -16,6 +16,15 @@ class EmployeeSerializers(serializers.ModelSerializer):
     class Meta:
         model = Employee
         fields = '__all__'
+        
+        
+
+
+class UserregSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Userregister
+        fields = '__all__'
+                
         
         
         

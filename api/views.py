@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect
 from api.forms import LoginForm
 from rest_framework.response import Response
 from rest_framework.decorators import api_view,parser_classes
-from .serializers import   BookingreqSerializers, CategorySerializers, EmployeeSerializers,FileSerializer
+from .serializers import   BookingreqSerializers, CategorySerializers, EmployeeSerializers,FileSerializer,UserregSerializers
 from.models import  Bookingreq, Category, Employee, Login, Userregister, workupdate,File
 from api import serializers
 from django.db import connection
@@ -34,7 +34,7 @@ def userhome(request):
 def LogOut(request):
     return render(request, 'LogOut.html')
 
-
+@api_view(['POST'])
 def login(request):   
     if request.method == "POST":
         form = LoginForm(request.POST)
@@ -49,7 +49,7 @@ def login(request):
             except:
                 pass
             try:
-                user = Userregister.objects.get(name=user_id, password=password)
+                user = Userregister.objects.get(user_id=user_id, password=password)
                 if user is not None:
 
                     request.session['uid'] = user.id
@@ -60,7 +60,7 @@ def login(request):
             
             
             try:
-                user = Employee.objects.get(name=user_id, password=password)
+                user = Employee.objects.get(user_id=user_id, password=password)
                 if user is not None:
                     request.session['eid'] = user.id
                     print(user.id)
@@ -121,6 +121,9 @@ def Updatecategory(request,pk):
 
 
 
+
+
+
 @api_view(['GET'])
 def deletecategory(request,pk):
     category=Category.objects.get(id=pk)
@@ -152,8 +155,8 @@ def Sendbookingrequest(request,id):
 
 @api_view(['GET'])
 def Employeeview(request,pk):
-    employee=Employee.objects.get(category=pk)
-    serializer=EmployeeSerializers(employee, many=False)
+    employee=Employee.objects.filter(category=pk)
+    serializer=EmployeeSerializers(employee,many=True)
     return Response(serializer.data)
 
 
@@ -180,6 +183,7 @@ def viewcategoryuser(request):
 
 def Viewemployeeuser(request,id):
     cat=Employee.objects.filter(category=id)
+    
     return render(request,"Viewemployeeuser.html",{'cat':cat})
 
 
@@ -249,9 +253,14 @@ class FileUploadView(APIView):
 
 @api_view(['GET'])
 def Showallemployee(request):
-    file=File.objects.all()
-    serializer=FileSerializer(file, many=True)
+    file=Employee.objects.all()
+    serializer=EmployeeSerializers(file, many=True)
     return Response(serializer.data)
+
+
+
+
+
 
 
 
@@ -271,4 +280,73 @@ def createemployee(request,pk):
     )
     serializer = EmployeeSerializers(note,many=False)
     return Response(serializer.data)   
+    
+
+
+def login(request):   
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            user_id = form['user_id'].value()
+            password = form['password'].value()
+
+            try:
+                user = Login.objects.get(user_id=user_id, password=password)
+                if user is not None:
+                    return redirect("../AdminHomePage")
+            except:
+                pass
+            try:
+                user = Userregister.objects.get(user_id=user_id, password=password)
+                serializer=UserregSerializers(instance=user,data=request.data)
+                if user is not None:
+
+                    request.session['uid'] = user.id
+                    print(user.id)
+                    return redirect("../userhome")
+            except:
+                pass
+            
+            
+            try:
+                user = Employee.objects.get(user_id=user_id, password=password)
+                if user is not None:
+                    request.session['eid'] = user.id
+                    print(user.id)
+                    return redirect("../employeehome")
+            
+            except:
+                pass    
+
+
+    form = LoginForm()
+    return render(request, 'login.html', {'form': form})
+
+
+
+@api_view(['POST'])
+def login_api(request):
+    data = request.data
+    user_id=data['user_id']
+    password=data['password']
+    try:
+        note=Userregister.objects.get(user_id=user_id,password=password)
+        serializer = UserregSerializers(note,many=False)
+        if note is not None:
+             return redirect("../userhome")
+              
+    except:
+        pass  
+      
+    try:
+
+        note=Employee.objects.get(user_id=user_id,password=password)
+        serializer = EmployeeSerializers(note,many=False)
+        return redirect("../employeehome")
+    except:
+        pass  
+    
+    
+    
+    
     
