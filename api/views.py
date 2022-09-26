@@ -85,9 +85,6 @@ def apiOverview(request):
     }
     return Response(api_urls);
 
-
-
-
 @api_view(['GET'])
 def Showall(request):
     category=Category.objects.all()
@@ -100,8 +97,6 @@ def Detialview(request,pk):
     category=Category.objects.get(id=pk)
     serializer=CategorySerializers(category, many=False)
     return Response(serializer.data)
-
-
 
 @api_view(['POST'])
 def Categorycreate(request):
@@ -119,19 +114,11 @@ def Updatecategory(request,pk):
         serializer.save()
     return Response(serializer.data)
 
-
-
-
-
-
 @api_view(['GET'])
 def deletecategory(request,pk):
     category=Category.objects.get(id=pk)
     category.delete()
     return Response('item deleted sucessfully')
-
-
-
 
 @api_view(['POST'])
 def Employeecreate(request,pk):
@@ -149,9 +136,6 @@ def Sendbookingrequest(request,id):
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)
-
-
-
 
 @api_view(['GET'])
 def Employeeview(request,pk):
@@ -257,13 +241,6 @@ def Showallemployee(request):
     serializer=EmployeeSerializers(file, many=True)
     return Response(serializer.data)
 
-
-
-
-
-
-
-
 @api_view(['POST'])
 def createemployee(request,pk):
     data = request.data
@@ -333,7 +310,7 @@ def login_api(request):
         note=Userregister.objects.get(user_id=user_id,password=password)
         serializer = UserregSerializers(note,many=False)
         if note is not None:
-             return redirect("../userhome")
+            return Response(serializer.data)
               
     except:
         pass  
@@ -342,11 +319,8 @@ def login_api(request):
 
         note=Employee.objects.get(user_id=user_id,password=password)
         serializer = EmployeeSerializers(note,many=False)
-        return redirect("../employeehome")
+        return Response(serializer.data)
     except:
-        pass  
-    
-    
-    
-    
+        pass
+  
     

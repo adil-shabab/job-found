@@ -1,9 +1,6 @@
-
-
 from django.urls import path,include
 from . import views
 from .views import *
-
 
 
 urlpatterns = [
@@ -32,6 +29,7 @@ urlpatterns = [
     path('userhome',views.userhome,name='userhome'),
     path('Viewworkupdation',views.Viewworkupdation,name='Viewworkupdation'),
     path('login',views.login,name='login'),
+    path('login_api',views.login_api,name='login_api'),
     path('LogOut',views.LogOut,name='LogOut'),
     path('View_employee_completed_work/<int:id>',views.View_employee_completed_work,name='View_employee_completed_work'),
    

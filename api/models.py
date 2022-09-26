@@ -24,20 +24,20 @@ class Category(models.Model):
     
 
 class Userregister(models.Model):
-    name=models.CharField(max_length=200, null=False, blank=False)
+    user_id=models.CharField(max_length=200, null=False, blank=False)
     lastname=models.CharField(max_length=200, null=False, blank=False)
     email=models.CharField(max_length=200, null=False, blank=False)
     phone=models.CharField(max_length=200, null=False, blank=False)
     password=models.CharField(max_length=200, null=False, blank=False)
 
     def _str_(self):
-        return self.name    
+        return self.user_id    
     
     
     
     
 class Employee(models.Model):
-    name=models.CharField(max_length=200, null=False, blank=False)
+    user_id=models.CharField(max_length=200, null=False, blank=False)
     lastname=models.CharField(max_length=200, null=True, blank=True)
     category=models.ForeignKey(Category,on_delete=models.CASCADE)
     description=models.TextField(max_length=200, null=False, blank=False)
@@ -47,7 +47,7 @@ class Employee(models.Model):
     
 
     def _str_(self):
-        return self.name
+        return self.user_id
     
     
     
@@ -99,17 +99,3 @@ class File(models.Model):
     
     
     
-    
-    
-    
-    
-    
- 
- 
-    
-    
-    
-      
-       
-
-
