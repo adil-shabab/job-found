@@ -246,7 +246,7 @@ def createemployee(request,pk):
     data = request.data
     category=Category.objects.get(id=pk)
     note = Employee.objects.create(
-        name=data['name'],
+        user_id =data['user_id'],
         lastname=data['lastname'],
         category=category,
         description=data['description'],
