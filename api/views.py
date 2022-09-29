@@ -14,26 +14,22 @@ from rest_framework.decorators import action
 from rest_framework.views import APIView
 from rest_framework.parsers import FileUploadParser
 from rest_framework import status
+from django.http.response import JsonResponse
 
 
 def index(request):
     return render(request, 'index.html')
-     
- 
+      
 def AdminHomePage(request):
     return render(request,"admin/PageHeader.html")
-  
- 
+   
 def employeehome(request):
     return render(request,"employee/employeehome.html")
-
-
 def userhome(request):
     return render(request,"user/pageheader.html")
 
 def LogOut(request):
     return render(request, 'LogOut.html')
-
 @api_view(['POST'])
 def login(request):   
     if request.method == "POST":
@@ -73,7 +69,6 @@ def login(request):
     form = LoginForm()
     return render(request, 'login.html', {'form': form})
 
-
 @api_view(['GET'])
 def apiOverview(request):
     api_urls={
@@ -89,22 +84,26 @@ def apiOverview(request):
 def Showall(request):
     category=Category.objects.all()
     serializer=CategorySerializers(category, many=True)
-    return Response(serializer.data)
-
+    return JsonResponse({"categories": serializer.data}, safe=False, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def Detialview(request,pk):
     category=Category.objects.get(id=pk)
     serializer=CategorySerializers(category, many=False)
-    return Response(serializer.data)
+    return JsonResponse({"categories": serializer.data}, safe=False, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 def Categorycreate(request):
     serializer=CategorySerializers(data=request.data)
     if serializer.is_valid():
         serializer.save()
-    return Response(serializer.data)
-
+        data = {}
+        data['response'] = ' Category Added'
+    
+    else:
+        data = serializer.errors
+        
+    return Response(data, status=status.HTTP_200_OK)   
 
 @api_view(['POST'])
 def Updatecategory(request,pk):
@@ -128,27 +127,29 @@ def Employeecreate(request,pk):
         serializer.save()
     return Response(serializer.data)
 
-
 @api_view(['POST'])
 def Sendbookingrequest(request,id):
     employee=Employee.objects.get(id=id)
     serializer=BookingreqSerializers(instance=employee,data=request.data)
     if serializer.is_valid():
         serializer.save()
-    return Response(serializer.data)
+        data = {}
+        data['response'] = 'Booked'
+    else:
+        data = serializer.errors
+        
+    return Response(data, status=status.HTTP_200_OK)   
 
 @api_view(['GET'])
 def Employeeview(request,pk):
     employee=Employee.objects.filter(category=pk)
     serializer=EmployeeSerializers(employee,many=True)
-    return Response(serializer.data)
-
+    return JsonResponse({"Employees": serializer.data}, safe=False, status=status.HTTP_200_OK)
 
 def viewRequestadmin(request):
     cat=Bookingreq.objects.all()
     print(cat)
     return render(request, "admin/viewRequestadmin.html", {'cat': cat})
-
 
 def requestaccept_admin(request,id):
     data=Bookingreq.objects.get(id=id)
@@ -156,21 +157,16 @@ def requestaccept_admin(request,id):
     data.save()
     return redirect("../viewRequestadmin")
 
-
-
 #---------------------------------user------------------------------------------------------------------#
 
 def viewcategoryuser(request):
     cat=Category.objects.all()
     return render(request, "viewcategoryuser.html", {'cat': cat})
 
-
 def Viewemployeeuser(request,id):
     cat=Employee.objects.filter(category=id)
     
     return render(request,"Viewemployeeuser.html",{'cat':cat})
-
-
 
 def Viewworkupdation(request):
     uid=request.session['uid']
@@ -187,7 +183,6 @@ def Viewemployeenotication(request):
     print(cat)
     return render(request,"employee/Viewemployeenotication.html",{'cat':cat})
 
-
 def update_workstatusemp(request,id,uid):
     status = 'COMPLETED'
     user_id = uid
@@ -196,22 +191,22 @@ def update_workstatusemp(request,id,uid):
     data.save()
     return redirect("/employeehome")
 
-
-
 def View_employee_completed_work(request,id):
     cat=workupdate.objects.filter(bookingreq=id,status='COMPLETED')
     print(cat)
     return render(request,"employee/View_employee_completed_work.html",{'cat':cat})
-
-
 
 @api_view(['POST'])
 def Bookingrequestcreate(request):
     serializer=BookingreqSerializers(data=request.data)
     if serializer.is_valid():
         serializer.save()
-    return Response(serializer.data)
-
+        data = {}
+        data['response'] = 'Booked'
+    else:
+        data = serializer.errors
+        
+    return Response(data, status=status.HTTP_200_OK)   
 
 
 @api_view(['GET'])
@@ -233,8 +228,6 @@ class FileUploadView(APIView):
       else:
           return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-
 @api_view(['GET'])
 def Showallemployee(request):
     file=Employee.objects.all()
@@ -246,7 +239,7 @@ def createemployee(request,pk):
     data = request.data
     category=Category.objects.get(id=pk)
     note = Employee.objects.create(
-        user_id =data['user_id'],
+        user_id=data['user_id'],
         lastname=data['lastname'],
         category=category,
         description=data['description'],
@@ -256,9 +249,9 @@ def createemployee(request,pk):
           
     )
     serializer = EmployeeSerializers(note,many=False)
-    return Response(serializer.data)   
-    
+    return Response(serializer.data) 
 
+  
 
 def login(request):   
     if request.method == "POST":
@@ -299,8 +292,6 @@ def login(request):
     form = LoginForm()
     return render(request, 'login.html', {'form': form})
 
-
-
 @api_view(['POST'])
 def login_api(request):
     data = request.data
@@ -322,5 +313,4 @@ def login_api(request):
         return Response(serializer.data)
     except:
         pass
-  
     
