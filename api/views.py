@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect
 from api.forms import LoginForm
 from rest_framework.response import Response
 from rest_framework.decorators import api_view,parser_classes
-from .serializers import   BookingreqSerializers, CategorySerializers, EmployeeSerializers,FileSerializer,UserregSerializers
+from .serializers import   BookingreqSerializers, CategorySerializers, EmployeeSerializers,FileSerializer,UserregSerializers,SelectedEmployeeSerializers
 from.models import  Bookingreq, Category, Employee, Login, Userregister, workupdate,File
 from api import serializers
 from django.db import connection
@@ -196,6 +196,14 @@ def View_employee_completed_work(request,id):
     print(cat)
     return render(request,"employee/View_employee_completed_work.html",{'cat':cat})
 
+
+
+@api_view(['GET'])
+def SelectEmployee(request,pk):
+    employee=Employee.objects.get(id=pk)
+    serializer=SelectedEmployeeSerializers(employee,many=False)
+    return JsonResponse({"Selected Employee": serializer.data}, safe=False, status=status.HTTP_200_OK)
+
 @api_view(['POST'])
 def Bookingrequestcreate(request):
     serializer=BookingreqSerializers(data=request.data)
@@ -313,4 +321,4 @@ def login_api(request):
         return Response(serializer.data)
     except:
         pass
-    
+  
