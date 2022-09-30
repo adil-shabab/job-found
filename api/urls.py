@@ -3,6 +3,8 @@ from . import views
 from .views import *
 
 
+from django.conf.urls import url
+
 urlpatterns = [
     path('', views.index, name='index'),
     path('',views.apiOverview,name='apiOverview'),
@@ -15,6 +17,7 @@ urlpatterns = [
     path('category-update/<int:pk>',views.Updatecategory,name='category-update'),
     path('category-delete/<int:pk>',views.deletecategory,name='category-delete'),
     path('employee-view/<int:pk>',views.Employeeview,name='employee-view'),
+    path('SelectEmployee/<int:pk>',views.SelectEmployee,name='SelectEmployee-view'),
     path('Viewemployeeuser/<int:id>',views.Viewemployeeuser,name='Viewemployeeuser'),
     path('viewcategoryuser',views.viewcategoryuser,name='viewcategoryuser'),
     path('viewRequestadmin',views.viewRequestadmin,name='viewRequestadmin'),
@@ -32,12 +35,5 @@ urlpatterns = [
     path('login_api',views.login_api,name='login_api'),
     path('LogOut',views.LogOut,name='LogOut'),
     path('View_employee_completed_work/<int:id>',views.View_employee_completed_work,name='View_employee_completed_work'),
-   
     
-    
-    
-    
-    
-    
-  
 ]
