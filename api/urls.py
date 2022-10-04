@@ -32,6 +32,11 @@ urlpatterns = [
     path('login',views.login,name='login'),
     path('login_api',views.login_api,name='login_api'),
     path('LogOut',views.LogOut,name='LogOut'),
+    path('add_category',views.add_category,name='add_category'),
+    path('view_category',views.view_category,name='view_category'),
+    path('edit_category/<int:id>',views.edit_category,name='edit_category'),
+    path('update_category/<int:id>',views.update_category,name='update_category'),
     path('View_employee_completed_work/<int:id>',views.View_employee_completed_work,name='View_employee_completed_work'),
+    path('Updateregistration/<int:id>',views.Updateregistration,name='Updateregistration'),
     
 ]
