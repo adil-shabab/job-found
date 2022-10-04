@@ -1,9 +1,9 @@
 from unicodedata import category
 from django.shortcuts import render,redirect
-from api.forms import LoginForm
+from api.forms import LoginForm,CategoryForm
 from rest_framework.response import Response
 from rest_framework.decorators import api_view,parser_classes
-from .serializers import   BookingreqSerializers, CategorySerializers, EmployeeSerializers,FileSerializer,UserregSerializers,SelectedEmployeeSerializers
+from .serializers import   BookingreqSerializers, CategorySerializers, EmployeeSerializers,FileSerializer,UserregSerializers,SelectedEmployeeSerializers,UpdateEmployeeSerializers
 from.models import  Bookingreq, Category, Employee, Login, Userregister, workupdate,File
 from api import serializers
 from django.db import connection
@@ -216,7 +216,6 @@ def Bookingrequestcreate(request):
         
     return Response(data, status=status.HTTP_200_OK)   
 
-
 @api_view(['GET'])
 def Showallbookingrequest(request):
     bookings=Bookingreq.objects.all()
@@ -253,12 +252,30 @@ def createemployee(request,pk):
         description=data['description'],
         Adhaar_no=data['Adhaar_no'],
         adhaar_img=data['adhaar_img'],
+        address=data['address'],
         password=data['password'],
-          
+        phone=data['phone'],
+        state=data['state'],
+        district=data['district'],
+        pincode=data['pincode'],                
     )
     serializer = EmployeeSerializers(note,many=False)
     return Response(serializer.data) 
 
+
+
+@api_view(['POST'])
+def Updateregistration(request,id):
+    employee=Employee.objects.get(id=id)
+    serializer=EmployeeSerializers(instance=employee,data=request.data,many=False)
+    if serializer.is_valid():
+        serializer.save()
+        data = {}
+        data['response'] = 'check box selected'
+    else:
+        data = serializer.errors
+        
+    return Response(data, status=status.HTTP_200_OK)
   
 
 def login(request):   
@@ -320,5 +337,42 @@ def login_api(request):
         serializer = EmployeeSerializers(note,many=False)
         return Response(serializer.data)
     except:
-        pass
+        pass  
+    
+    
+#--------------------------------adminhomepage---------------------------------------------#
+
+def add_category(request):
+    if request.method == "POST":
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                return redirect('/add_category')
+            except:
+                pass
+    else:
+        form = CategoryForm()
+    return render(request, 'admin/add_category.html', {'form': form})
+
+
+def view_category(request):
+    cat = Category.objects.all()
+    print("data:")
+    return render(request, "admin/view_category.html", {'cat': cat})
+
+
+def edit_category(request,id):
+    cat=Category.objects.get(id=id)
+    return render(request,"admin/edit_category.html",{'cat':cat})
+
+
+def update_category(request, id):
+    cat = Category.objects.get(id=id)
+    print(id)
+    form = CategoryForm(request.POST,instance=cat)
+    if form.is_valid():
+        form.save()
+        return redirect("../view_category")
+    return render(request, 'edit_category.html', {'cat': cat}) 
   
