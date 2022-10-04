@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect
 from api.forms import LoginForm,CategoryForm
 from rest_framework.response import Response
 from rest_framework.decorators import api_view,parser_classes
-from .serializers import   BookingreqSerializers, CategorySerializers, EmployeeSerializers,FileSerializer,UserregSerializers,SelectedEmployeeSerializers,UpdateEmployeeSerializers
+from .serializers import   BookingreqSerializers, CategorySerializers, EmployeeSerializers,FileSerializer,UserregSerializers,SelectedEmployeeSerializers
 from.models import  Bookingreq, Category, Employee, Login, Userregister, workupdate,File
 from api import serializers
 from django.db import connection
