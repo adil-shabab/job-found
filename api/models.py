@@ -1,9 +1,6 @@
 from unicodedata import category
 from django.db import models
 
-
-
-
 class Login(models.Model):
     user_id=models.CharField(max_length=40)
     password=models.CharField(max_length=40)
@@ -12,17 +9,12 @@ class Login(models.Model):
         return self.user_id
     
 
-
 class Category(models.Model):
     name=models.CharField(max_length=200, null=False, blank=False)
 
     def _str_(self):
         return self.name
     
-    
-    
-    
-
 class Userregister(models.Model):
     user_id=models.CharField(max_length=200, null=False, blank=False)
     lastname=models.CharField(max_length=200, null=False, blank=False)
@@ -32,27 +24,27 @@ class Userregister(models.Model):
 
     def _str_(self):
         return self.user_id    
-    
-    
-    
-    
+       
 class Employee(models.Model):
     user_id=models.CharField(max_length=200, null=False, blank=False)
     lastname=models.CharField(max_length=200, null=True, blank=True)
     category=models.ForeignKey(Category,on_delete=models.CASCADE)
-    description=models.TextField(max_length=200, null=False, blank=False)
+    description=models.TextField(max_length=200, null=True, blank=True)
+    address=models.TextField(max_length=200, null=True, blank=True)
+    phone=models.CharField(max_length=200, null=True, blank=True)
+    state=models.TextField(max_length=200, null=True, blank=True)
+    district=models.TextField(max_length=200, null=True, blank=True)
+    pincode=models.TextField(max_length=200, null=True, blank=True)
     Adhaar_no=models.IntegerField(null=True, blank=True)
-    adhaar_img=models.ImageField(upload_to='adhaarimg',null=True, blank=True)
+    adhaar_img=models.ImageField(upload_to='adhaarimg',null=True,blank=True)
     password=models.TextField(max_length=200,null=True, blank=True)
+    employee_status=models.CharField(max_length=200, null=True, blank=True)
+ 
     
-
+    
     def _str_(self):
         return self.user_id
-    
-    
-    
-    
-    
+       
 class Bookingreq(models.Model):
     userregister=models.ForeignKey(Userregister,on_delete=models.CASCADE,null=True, blank=True)
     description=models.TextField(max_length=200, null=False, blank=False)
@@ -64,8 +56,7 @@ class Bookingreq(models.Model):
 
     def _str_(self):
         return self.username    
-    
-    
+        
 class workupdate(models.Model):
     user_id=models.CharField(max_length=200, null=True, blank=True)
     bookingreq=models.ForeignKey(Bookingreq,on_delete=models.CASCADE)
@@ -75,10 +66,6 @@ class workupdate(models.Model):
     def _str_(self):
         return self.user_id     
     
-    
-    
-    
-
 class File(models.Model):
     name=models.CharField(max_length=200, null=False, blank=False)
     lastname=models.CharField(max_length=200, null=True, blank=True)
@@ -89,8 +76,6 @@ class File(models.Model):
     file = models.FileField(blank=False, null=False)
     def __str__(self):
         return self.file.name
-  
-    
     
     
     
