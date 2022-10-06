@@ -1,0 +1,201 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <title>ADMIN PANEL OF PANIKITTY APP</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="../static/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="../static/assets/css/templatemo-cyborg-gaming.css">
+    <link rel="stylesheet" href="../static/assets/css/owl.css">
+    <link rel="stylesheet" href="../static/assets/css/animate.css">
+    <link rel="stylesheet"href="../https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+<!--
+
+TemplateMo 579 Cyborg Gaming
+
+https://templatemo.com/tm-579-cyborg-gaming
+
+-->
+  </head>
+
+<body>
+
+  <!-- ***** Preloader Start ***** -->
+  <div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+      <span class="dot"></span>
+      <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <!-- ***** Preloader End ***** -->
+
+  <!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="index.html" class="logo">
+                        <img src="../static/assets/images/asd.png" width="100" height="150" alt="">
+                    </a>
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Search End ***** -->
+                   
+                    <!-- ***** Search End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    <ul class="nav">
+                      <li><a href="/AdminHomePage" >HOME</a></li>
+                      <li><a href="/add_category" >ADD SKILL</a></li>
+                      <li><a href="/view_category" >SKILLS</a></li>
+                      <li><a href="/view_employees_by_category" >EMPLOYEES</a></li>
+                      <li><a href="/viewRequestadmin">REQUESTS</a></li>
+                      <li><a href="/LogOut" class="active"><b>Log Out</b></a></li>
+                  </ul>   
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+  </header>
+  <!-- ***** Header Area End ***** -->
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-content">
+
+          <!-- ***** Banner Start ***** -->
+          <div class="main-banner">
+            <div class="row">
+              <div class="col-lg-7">
+                <div class="header-text">
+                  <h6>WELCOME TO PANI KITTY</h6>
+                  <h4><em>Do</em> Get Paid</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ***** Banner End ***** -->
+
+          <!-- ***** Most Popular Start ***** -->
+          
+          <!-- ***** Most Popular End ***** -->
+
+          <!-- ***** Gaming Library Start ***** -->
+         
+          <!-- ***** Gaming Library End ***** -->
+        </div>
+      </div>
+    </div>
+  </div>
+<html lang="en">
+<head>
+    <style>
+        #cs {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+            #cs td, #cs th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            #cs tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            #cs tr:hover {
+                background-color: #ddd;
+            }
+
+            #cs th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+            }
+    </style>
+</head>
+<center><h1>VIEW EMPLOYEE DETIALS HERE</h1></center>
+<table id="cs">
+    <tr>
+
+        <th>Sl.no</th>
+        <th>NAME</th>
+        <th>CATEGORY</th>
+        <th>DESCRIPTION</th>
+        <th>ADDRESS</th>
+        <th>PHONE</th>
+        <th>STATE</th>
+        <th>DISTRICT</th>
+        <th>PINCODE</th>
+        <th>AADAAR NO.</th>
+        <th>AADAAR FILE</th>
+
+
+    </tr>
+    {% for cat in cat %}
+
+<tr>
+  <td height="87"><div align="center">{{ cat.id }}</div></td>
+  <td><div align="center">{{ cat.user_id }}</div></td>
+  <td><div align="center">{{ cat.category.name }}</div></td>
+  <td><div align="center">{{ cat.description }}</div></td>
+  <td><div align="center">{{ cat.address }}</div></td>
+  <td><div align="center">{{ cat.phone }}</div></td>
+  <td><div align="center">{{ cat.state }}</div></td>
+  <td><div align="center">{{ cat.district }}</div></td>
+  <td><div align="center">{{ cat.pincode }}</div></td>
+  <td><div align="center">{{ cat.Adhaar_no }}</div></td>
+  <td><img class="card-img-top" src="{{cat.adhaar_img.url}}" alt="Card image cap"></td>
+
+    {% endfor %}
+</table></html>
+
+<footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <p>Copyright © 2036 <a href="#">Panikitti</a>Company. All rights reserved. 
+          
+          <br>Design: <a href="" target="_blank" title="free CSS templates">PaniKitti</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  
+  <!-- Scripts -->
+  <!-- Bootstrap core JavaScript -->
+  <script src="../static/vendor/jquery/jquery.min.js"></script>
+  <script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+  
+  <script src="../static/assets/js/isotope.min.js"></script>
+  <script src="../static/assets/js/owl-carousel.js"></script>
+  <script src="../static/assets/js/tabs.js"></script>
+  <script src="../static/assets/js/popup.js"></script>
+  <script src="../static/assets/js/custom.js"></script>
+  </body>
+  </html>
+  

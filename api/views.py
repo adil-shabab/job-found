@@ -30,18 +30,17 @@ def userhome(request):
 
 def LogOut(request):
     return render(request, 'LogOut.html')
-@api_view(['POST'])
+
 def login(request):   
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
             user_id = form['user_id'].value()
             password = form['password'].value()
-
             try:
-                user = Login.objects.get(user_id=user_id, password=password)
+                user = Login.objects.get(user_id=user_id,password=password)
                 if user is not None:
-                    return redirect("../AdminHomePage")
+                    return redirect("/AdminHomePage")
             except:
                 pass
             try:
@@ -67,7 +66,7 @@ def login(request):
 
 
     form = LoginForm()
-    return render(request, 'login.html', {'form': form})
+    return render(request,'login.html', {'form': form})
 
 @api_view(['GET'])
 def apiOverview(request):
@@ -278,44 +277,6 @@ def Updateregistration(request,id):
     return Response(data, status=status.HTTP_200_OK)
   
 
-def login(request):   
-    if request.method == "POST":
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            user_id = form['user_id'].value()
-            password = form['password'].value()
-
-            try:
-                user = Login.objects.get(user_id=user_id, password=password)
-                if user is not None:
-                    return redirect("../AdminHomePage")
-            except:
-                pass
-            try:
-                user = Userregister.objects.get(user_id=user_id, password=password)
-                serializer=UserregSerializers(instance=user,data=request.data)
-                if user is not None:
-
-                    request.session['uid'] = user.id
-                    print(user.id)
-                    return redirect("../userhome")
-            except:
-                pass
-            
-            
-            try:
-                user = Employee.objects.get(user_id=user_id, password=password)
-                if user is not None:
-                    request.session['eid'] = user.id
-                    print(user.id)
-                    return redirect("../employeehome")
-            
-            except:
-                pass    
-
-
-    form = LoginForm()
-    return render(request, 'login.html', {'form': form})
 
 @api_view(['POST'])
 def login_api(request):
@@ -374,5 +335,30 @@ def update_category(request, id):
     if form.is_valid():
         form.save()
         return redirect("../view_category")
-    return render(request, 'edit_category.html', {'cat': cat}) 
-  
+    return render(request, 'admin/edit_category.html', {'cat': cat}) 
+
+def delete_category(request,id):
+    cat = Category.objects.get(id=id)
+    print(id)
+    cat.delete()
+    return redirect("../view_category")
+
+
+def view_employees_by_category(request):
+    cat = Category.objects.all()
+    print("data:")
+    return render(request, "admin/view_employees_by_category.html", {'cat': cat})
+
+def Viewemployeesadmin(request,id):
+    cat=Employee.objects.filter(category=id)
+    return render(request,"admin/Viewemployeesadmin.html",{'cat': cat})
+
+
+
+
+
+
+
+   
+
+

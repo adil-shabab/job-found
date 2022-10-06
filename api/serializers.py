@@ -17,6 +17,12 @@ class EmployeeSerializers(serializers.ModelSerializer):
         model = Employee
         fields = '__all__'
         
+class UpdateEmployeeSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Employee
+        fields =('id','employee_status')
+                
+        
         
 class SelectedEmployeeSerializers(serializers.ModelSerializer):
     class Meta:
@@ -42,18 +48,5 @@ class FileSerializer(serializers.ModelSerializer):
 class BookingreqSerializers(serializers.ModelSerializer):
     class Meta:
         model = Bookingreq
-        fields = '__all__'
+        fields = '__all__'        
         
-        
-        
-
-
-
-        
-        
-        
-        
-
-        
-        
-                

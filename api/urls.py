@@ -1,3 +1,4 @@
+
 from django.urls import path
 from . import views
 from .views import *
@@ -36,7 +37,10 @@ urlpatterns = [
     path('view_category',views.view_category,name='view_category'),
     path('edit_category/<int:id>',views.edit_category,name='edit_category'),
     path('update_category/<int:id>',views.update_category,name='update_category'),
+    path('delete_category/<int:id>',views.delete_category,name='delete_category'),
     path('View_employee_completed_work/<int:id>',views.View_employee_completed_work,name='View_employee_completed_work'),
     path('Updateregistration/<int:id>',views.Updateregistration,name='Updateregistration'),
+    path('Viewemployeesadmin/<int:id>',views.Viewemployeesadmin,name='Viewemployeesadmin'),
+    path('view_employees_by_category',views.view_employees_by_category,name='view_employees_by_category'),
     
 ]

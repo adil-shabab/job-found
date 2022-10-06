@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 
 
-
 import os
 import posixpath
 
@@ -53,7 +52,7 @@ SECRET_KEY = 'django-insecure-0ki1z7_ptydx6v32mae9)(r#zj+l7uw-utlrfjknzt@%-y!*zk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['job-found.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -148,17 +147,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_ROOT='uploads'
+MEDIA_URL='/media/'
+STATICFILES_DIRS=[
+    os.path.join(BASE_DIR,'static'),
+    
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
 ]
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
-
 
 
 

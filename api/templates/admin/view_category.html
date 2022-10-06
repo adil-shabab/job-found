@@ -1,0 +1,45 @@
+{% extends 'admin/PageHeader.html' %}
+{% block content %}
+<head>
+    <style>
+        #cs {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+            #cs td, #cs th {
+              
+                padding: 8px;
+            }
+
+            #cs tr:nth-child(odd) {
+                background-color: #f4f4f2;
+            }
+
+            #cs tr:hover {
+                background-color: #ddd;
+            }
+
+            #cs th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+            }
+    </style>
+</head>
+<table id="cs">
+    <tr>
+       <th> <center>Name</center></th>
+    </tr>
+    {% for cat in cat %}
+<tr>
+
+  <td><div align="center">{{ cat.name }}</div></td>
+  <td width="80"><a href="/edit_category/{{ cat.id }}">Edit</a></td>
+  <td width="80"><a href="/delete_category/{{ cat.id }}">Delete</a></td>
+    {% endfor %}
+</table></html>
+{% endblock %}
+
+
