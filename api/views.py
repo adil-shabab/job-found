@@ -354,7 +354,22 @@ def Viewemployeesadmin(request,id):
     return render(request,"admin/Viewemployeesadmin.html",{'cat': cat})
 
 
+@api_view(['GET'])
+def Available_checking(request,id):
+    file=Bookingreq.objects.filter(employee=id)
+    serializer=BookingreqSerializers(file,many=True)
+    return Response(serializer.data)    
 
+
+
+   
+@api_view(['POST'])
+def UpdateProfile(request,pk):
+    profile = Employee.objects.get(id=pk)
+    serializer=EmployeeSerializers(instance=profile,data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)   
 
 
 
