@@ -42,5 +42,7 @@ urlpatterns = [
     path('Updateregistration/<int:id>',views.Updateregistration,name='Updateregistration'),
     path('Viewemployeesadmin/<int:id>',views.Viewemployeesadmin,name='Viewemployeesadmin'),
     path('view_employees_by_category',views.view_employees_by_category,name='view_employees_by_category'),
+    path('Available_checking/<int:id>',views.Available_checking,name='Available_checking'),
+    path('UpdateProfile/<int:pk>',views.UpdateProfile,name='UpdateProfile'),
     
 ]
