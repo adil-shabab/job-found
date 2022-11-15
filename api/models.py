@@ -39,6 +39,8 @@ class Employee(models.Model):
     adhaar_img=models.ImageField(upload_to='adhaarimg',null=True,blank=True)
     password=models.TextField(max_length=200,null=True, blank=True)
     employee_status=models.CharField(max_length=200, null=True, blank=True)
+    longitude=models.CharField(max_length=200, null=True, blank=True)
+    latiude=models.CharField(max_length=200, null=True, blank=True)
  
     
     
