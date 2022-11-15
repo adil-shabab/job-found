@@ -256,7 +256,9 @@ def createemployee(request,pk):
         phone=data['phone'],
         state=data['state'],
         district=data['district'],
-        pincode=data['pincode'],                
+        pincode=data['pincode'],
+        longitude=data['longitude'],
+        latitude=data['latitude'],
     )
     serializer = EmployeeSerializers(note,many=False)
     return Response(serializer.data) 
