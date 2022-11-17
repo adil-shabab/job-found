@@ -375,8 +375,8 @@ def UpdateProfile(request,pk):
 @api_view(['POST'])
 def Placeview(request,id):
     if request.method == "POST":
-        pincode=request.POST['place']
-        employee=Employee.objects.filter(category=id,place=place)
+        pincode=request.POST['pincode']
+        employee=Employee.objects.filter(category=id,pincode=pincode)
         serializer=EmployeeSerializers(employee,many=True)
         print(serializer)
         return JsonResponse({"Employees": serializer.data}, safe=False, status=status.HTTP_200_OK)
