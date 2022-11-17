@@ -372,7 +372,14 @@ def UpdateProfile(request,pk):
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)   
-
+@api_view(['POST'])
+def Placeview(request,id):
+    if request.method == "POST":
+        place=request.POST['place']
+        employee=Employee.objects.filter(category=id,place=place)
+        serializer=EmployeeSerializers(employee,many=True)
+        print(serializer)
+        return JsonResponse({"Employees": serializer.data}, safe=False, status=status.HTTP_200_OK)
 
 
 
