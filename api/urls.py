@@ -44,5 +44,6 @@ urlpatterns = [
     path('view_employees_by_category',views.view_employees_by_category,name='view_employees_by_category'),
     path('Available_checking/<int:id>',views.Available_checking,name='Available_checking'),
     path('UpdateProfile/<int:pk>',views.UpdateProfile,name='UpdateProfile'),
+    path('Placeview/<int:id>',views.Placeview,name='Placeview'),
     
 ]
